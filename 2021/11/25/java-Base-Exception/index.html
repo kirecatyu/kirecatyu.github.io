@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【Java 基础】Java异常处理和设计 | 猫的树’s Blog</title><meta name="keywords" content="Java基础,异常处理"><meta name="author" content="猫的树"><meta name="copyright" content="猫的树"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="对Java基础知识点的学习回顾">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Java 基础】Java异常处理和设计">
+<meta property="og:url" content="https://www.kirecatyu.top/2021/11/25/java-Base-Exception/index.html">
+<meta property="og:site_name" content="猫的树’s Blog">
+<meta property="og:description" content="对Java基础知识点的学习回顾">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.kirecatyu.top/blog_img/javabase/2.png">
+<meta property="article:published_time" content="2021-11-25T03:54:37.000Z">
+<meta property="article:modified_time" content="2021-12-08T09:11:21.104Z">
+<meta property="article:author" content="猫的树">
+<meta property="article:tag" content="异常处理">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.kirecatyu.top/blog_img/javabase/2.png"><link rel="shortcut icon" href="/blog_img/commentsBg.webp"><link rel="canonical" href="https://www.kirecatyu.top/2021/11/25/java-Base-Exception/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6e71e1d31d571b0b8655649dec191d84";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 猫的树","link":"链接: ","source":"来源: 猫的树’s Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Java 基础】Java异常处理和设计',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-08 17:11:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_2990033_ui6ttkzwqv9.css"><link rel="stylesheet" href="/css/background.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="猫的树’s Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/blog_img/head_img.jpeg" onerror="onerror=null;src='/blog_img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-inbox"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-prompt-fill"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">猫的树’s Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-inbox"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-prompt-fill"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">【Java 基础】Java异常处理和设计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-25T03:54:37.000Z" title="发表于 2021-11-25 11:54:37">2021-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-08T09:11:21.104Z" title="更新于 2021-12-08 17:11:21">2021-12-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Java 基础】Java异常处理和设计"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div><article class="post-content" id="article-container"><p>异常（exception）是在运行程序时产生的一种异常情况，已经成为了衡量一门语言是否成熟的标准之一。</p>
+<h2 id="一、什么是异常"><a href="#一、什么是异常" class="headerlink" title="一、什么是异常"></a>一、什么是异常</h2><blockquote>
+<p><strong>程序运行时，发生的不被期望的事件，它阻止了程序按照程序员的预期正常执行，这就是异常。</strong></p>
+</blockquote>
+<p>那如果程序产生异常，是任程序自生自灭，立刻退出终止，还是输出错误给用户？Java 提供了更加优秀的解决办法：<strong>异常处理机制</strong>。</p>
+<p>Java 通过面向对象的方法来处理异常。在一个方法的运行过程中，如果发生了异常，则这个方法会产生代表该异常的一个对象，并把它交给运行时的系统，运行时系统寻找相应的代码来处理这一异常。</p>
+<h2 id="二、异常的分类"><a href="#二、异常的分类" class="headerlink" title="二、异常的分类"></a>二、异常的分类</h2><p>为了能够及时有效地处理程序中的运行错误，Java 专门引入了异常类 Throwable 类。</p>
+<p><img src="https://img-blog.csdnimg.cn/961d66c351594eafbdeac5ec04db7b67.png" alt="异常结构图"></p>
+<h3 id="Error和Exception"><a href="#Error和Exception" class="headerlink" title="Error和Exception"></a>Error和Exception</h3><p>Throwable： 有两个重要的子类：Exception（异常） 和 Error（错误） ，二者都是 Java 异常处理的重要子类，各自都包含大量子类。</p>
+<p>Error是无法处理的异常，比如OutOfMemoryError，一般发生这种异常，JVM会选择终止程序。因此我们编写程序时不需要关心这类异常。</p>
+<p>其中异常类 Exception 又分为<strong>运行时异常</strong>和<strong>非运行时异常</strong>，这两种异常有很大的区别，也称为<strong>不检查异常</strong>（Unchecked Exception）和<strong>检查异常</strong>（Checked Exception）。</p>
+<h3 id="常见的-Error-和-Exception"><a href="#常见的-Error-和-Exception" class="headerlink" title="常见的 Error 和 Exception"></a>常见的 Error 和 Exception</h3><p>1）运行时异常（RuntimeException）：</p>
+<p>• NullPropagation：空指针异常；<br>• ClassCastException：类型强制转换异常<br>• IllegalArgumentException：传递非法参数异常<br>• IndexOutOfBoundsException：下标越界异常<br>• NumberFormatException：数字格式异常</p>
+<p>2）非运行时异常：</p>
+<p>• ClassNotFoundException：找不到指定 class 的异常<br>• IOException：IO 操作异常</p>
+<p>3）错误（Error）：</p>
+<p>• NoClassDefFoundError：找不到 class 定义异常<br>• StackOverflowError：深递归导致栈被耗尽而抛出的异常<br>• OutOfMemoryError：内存溢出异常</p>
+<h3 id="异常方法"><a href="#异常方法" class="headerlink" title="异常方法"></a>异常方法</h3><p>介绍Throwable 类的主要方法:<br>| 方法 | 说明  |<br>|–|–|<br>| public String getMessage() | 返回关于发生的异常的详细信息。这个消息在Throwable 类的构造函数中初始化了。 |<br>| public Throwable getCause() | 返回一个Throwable 对象代表异常原因。 |<br>| public String toString() | 使用getMessage()的结果返回类的串级名字。 |<br>| public void printStackTrace() | 打印toString()结果和栈层次到System.err，即错误输出流。 |<br>| public StackTraceElement [] getStackTrace() | 返回一个包含堆栈层次的数组。下标为0的元素代表栈顶，最后一个元素代表方法调用堆栈的栈底。 |<br>| public Throwable fillInStackTrace() | 用当前的调用栈层次填充Throwable 对象栈层次，添加到栈层次任何先前信息中。 |</p>
+<h2 id="三、Java异常处理机制"><a href="#三、Java异常处理机制" class="headerlink" title="三、Java异常处理机制"></a>三、Java异常处理机制</h2><blockquote>
+<p><strong>Java 的异常处理通过 5 个关键字来实现：try、catch、throw、throws 和 finally。</strong></p>
+</blockquote>
+<p>try catch 语句用于捕获并处理异常，finally 语句用于在任何情况下（除特殊情况外）都必须执行的代码，throw 语句用于拋出异常，throws 语句用于声明可能会出现的异常。</p>
+<p>代码说明：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    逻辑程序块</span><br><span class="line">&#125; <span class="keyword">catch</span>(ExceptionType1 e) &#123;</span><br><span class="line">    处理代码块<span class="number">1</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (ExceptionType2 e) &#123;</span><br><span class="line">    处理代码块<span class="number">2</span></span><br><span class="line">    <span class="keyword">throw</span>(e);    <span class="comment">// 再抛出这个&quot;异常&quot;</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    释放资源代码块</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>异常处理的机制如下：<br>• 在方法中用 try catch 语句捕获并处理异常，catch 语句可以有多个，用来匹配多个异常。<br>• 对于处理不了的异常或者要转型的异常，在方法的声明处通过 throws 语句拋出异常，即由上层的调用方法来处理。</p>
+<p>再来看下面一段代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="keyword">new</span> Main().openFile();</span><br><span class="line">        System.out.println(str);</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">openFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            FileInputStream inputStream = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;d:/a.txt&quot;</span>);</span><br><span class="line">            <span class="keyword">int</span> ch = inputStream.read();</span><br><span class="line">            System.out.println(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;step1&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;file not found&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;step2&quot;</span>;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;io exception&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;step3&quot;</span>;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;finally block&quot;</span>);</span><br><span class="line">            <span class="comment">//return &quot;finally&quot;;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<blockquote>
+<p>file not found<br>finally block<br>step2</p>
+</blockquote>
+<p>可以看出，在try块中发生FileNotFoundException之后，就跳到第一个catch块，打印”file not found”信息，并将”step2”赋值给返回值，然后执行finally块，最后将返回值返回。</p>
+<p>而当我们将 finally 代码块中return语句注释去掉，运行结果变为：</p>
+<blockquote>
+<p>file not found<br>finally block<br>finally</p>
+</blockquote>
+<p>返回值被重新覆盖了，所以在使用try..catch..finally块的时候，注意千万不要在finally块中使用return，因为finally中的return会覆盖已有的返回值。</p>
+<h3 id="finally块不会被执行的情况"><a href="#finally块不会被执行的情况" class="headerlink" title="finally块不会被执行的情况"></a>finally块不会被执行的情况</h3><p>前面说了无论是否捕获或处理异常，finally块里的语句都会被执行。（当在try块或catch块中遇到return语句时，finally语句块将在方法返回之前被执行）</p>
+<p>那有没有什么情况finally块不会被执行呢？</p>
+<p>答案是有的，在以下4种特殊情况下，finally块不会被执行：</p>
+<ol>
+<li>在finally语句块中发生了异常。</li>
+<li>在前面的代码中用了System.exit()退出程序。</li>
+<li>程序所在的线程死亡。</li>
+<li>关闭CPU。</li>
+</ol>
+<h2 id="四、异常的链化"><a href="#四、异常的链化" class="headerlink" title="四、异常的链化"></a>四、异常的链化</h2><p>在一些大型的，模块化的软件开发中，一旦一个地方发生异常，则如骨牌效应一样，将导致一连串的异常。假设B模块完成自己的逻辑需要调用A模块的方法，如果A模块发生异常，则B也将不能完成而发生异常，但是B在抛出异常时，会将A的异常信息掩盖掉，这将使得异常的根源信息丢失。<strong>异常的链化可以将多个模块的异常串联起来，使得异常信息不会丢失。</strong></p>
+<p><strong>异常链化</strong>：<strong>以一个异常对象为参数构造新的异常对象。新的异对象将包含先前异常的信息</strong>。这项技术主要是异常类的一个带Throwable参数的函数来实现的。这个当做参数的异常，我们叫他根源异常（cause）。</p>
+<h2 id="五、子类重写父类异常处理"><a href="#五、子类重写父类异常处理" class="headerlink" title="五、子类重写父类异常处理"></a>五、子类重写父类异常处理</h2><p>当子类重写父类的带有 throws声明的函数时，其throws声明的异常必须在父类异常的可控范围内——用于处理父类的throws方法的异常处理器，必须也适用于子类的这个带throws方法 。这是为了支持多态。</p>
+<p>简单来说：父类方法throws 的是2个异常，子类就不能throws 3个及以上的异常。父类throws IOException，子类就必须throws IOException或者IOException的子类。</p>
+<p>如果父类的方法声明的异常类型只有非运行时异常（运行时异常），则子类在重写该方法的时候声明的异常也只能有非运行时异常（运行时异常），不能含有运行时异常（非运行时异常）。</p>
+<h2 id="六、异常处理设计"><a href="#六、异常处理设计" class="headerlink" title="六、异常处理设计"></a>六、异常处理设计</h2><p>1.<code>只在必要使用异常的地方才使用异常，不要用异常去控制程序的流程</code></p>
+<p>谨慎地使用异常，异常捕获的代价非常高昂，异常使用过多会严重影响程序的性能。</p>
+<p>2.<code>切忌使用空catch块</code></p>
+<p>在捕获了异常之后什么都不做，相当于忽略了这个异常。千万不要使用空的catch块，空的catch块意味着你在程序中隐藏了错误和异常，并且很可能导致程序出现不可控的执行结果。如果你非常肯定捕获到的异常不会以任何方式对程序造成影响，最好用Log日志将该异常进行记录，以便日后方便更新和维护。</p>
+<p>3.<code>检查异常和非检查异常的选择</code></p>
+<p>一旦你决定抛出异常，你就要决定抛出什么异常。这里面的主要问题就是抛出检查异常还是非检查异常。</p>
+<p>　　检查异常导致了太多的try…catch代码，可能有很多检查异常对开发人员来说是无法合理地进行处理的，比如SQLException，而开发人员却不得不去进行try…catch，这样就会导致经常出现这样一种情况：逻辑代码只有很少的几行，而进行异常捕获和处理的代码却有很多行。这样不仅导致逻辑代码阅读起来晦涩难懂，而且降低了程序的性能。</p>
+<p>　　我个人建议尽量避免检查异常的使用，如果确实该异常情况的出现很普遍，需要提醒调用者注意处理的话，就使用检查异常；否则使用非检查异常。</p>
+<p>　　因此，在一般情况下，我觉得尽量将检查异常转变为非检查异常交给上层处理。</p>
+<p>4.<code>注意catch块的顺序</code></p>
+<p>不要把上层类的异常放在最前面的catch块。比如下面这段代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">        FileInputStream inputStream = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;d:/a.txt&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> ch = inputStream.read();</span><br><span class="line">        System.out.println(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;step1&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">　　      System.out.println(<span class="string">&quot;io exception&quot;</span>);　　      </span><br><span class="line">         <span class="keyword">return</span> <span class="string">&quot;step2&quot;</span>;</span><br><span class="line">    &#125;<span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;file not found&quot;</span>);　　　　      </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;step3&quot;</span>;</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;finally block&quot;</span>);</span><br><span class="line">        <span class="comment">//return &quot;finally&quot;;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>第二个catch的FileNotFoundException将永远不会被捕获到，因为FileNotFoundException是IOException的子类。</p>
+<p>5.<code>不要将提供给用户看的信息放在异常信息里</code></p>
+<p>比如下面这段代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String user = <span class="keyword">null</span>;</span><br><span class="line">            String pwd = <span class="keyword">null</span>;</span><br><span class="line">            login(user,pwd);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(String user,String pwd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(user==<span class="keyword">null</span>||pwd==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">&quot;用户名或者密码为空&quot;</span>);</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>展示给用户错误提示信息最好不要跟程序混淆一起，比较好的方式是将所有错误提示信息放在一个配置文件中统一管理。</p>
+<p>6.<code>避免多次在日志信息中记录同一个异常</code></p>
+<p>只在异常最开始发生的地方进行日志信息记录。很多情况下异常都是层层向上跑出的，如果在每次向上抛出的时候，都Log到日志系统中，则会导致无从查找异常发生的根源。</p>
+<p>7.<code>异常处理尽量放在高层进行</code></p>
+<p>尽量将异常统一抛给上层调用者，由上层调用者统一之时如何进行处理。如果在每个出现异常的地方都直接进行处理，会导致程序异常处理流程混乱，不利于后期维护和异常错误排查。由上层统一进行处理会使得整个程序的流程清晰易懂。</p>
+<p>8.<code>在finally中释放资源</code></p>
+<p>如果有使用文件读取、网络操作以及数据库操作等，记得在finally中释放资源。这样不仅会使得程序占用更少的资源，也会避免不必要的由于资源未释放而发生的异常情况。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在程序设计中，进行异常处理是非常关键和重要的一部分。一个程序的异常处理框架的好坏直接影响到整个项目的代码质量以及后期维护成本和难度。</p>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/dolphin0520/p/3769804.html">https://www.cnblogs.com/dolphin0520/p/3769804.html</a></p>
+<blockquote>
+<p>创作不易，关注、点赞就是对作者最大的鼓励，欢迎在下方留言<br>简书ID: <a target="_blank" rel="noopener" href="https://www.jianshu.com/u/55873abb82cb">猫的树</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34383510?spm=1001.2014.3001.5343">.猫的树</a><br>欢迎关注<strong>微信公众号</strong>：<strong>键指JAVA</strong>，定期分享Java知识，<strong>一起学习，共同成长</strong>。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">猫的树</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.kirecatyu.top/2021/11/25/java-Base-Exception/">https://www.kirecatyu.top/2021/11/25/java-Base-Exception/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.kirecatyu.top" target="_blank">猫的树’s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">异常处理</a><a class="post-meta__tags" href="/tags/Java%E5%9F%BA%E7%A1%80/">Java基础</a></div><div class="post_share"><div class="social-share" data-image="/blog_img/javabase/2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/blog_img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/blog_img/wechat.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/blog_img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/blog_img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/24/SpringCloud(4)/"><img class="prev-cover" src="/blog_img/springcloud/4.png" onerror="onerror=null;src='/blog_img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【SpringCloud入门】Zuul路由配置</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/29/SpringCloud(5)/"><img class="next-cover" src="/blog_img/springcloud/5.png" onerror="onerror=null;src='/blog_img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【SpringCloud入门】SSO 单点登录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/26/SpringBoot(7)/" title="【SpringBoot学习笔记】统一异常处理"><img class="cover" src="/blog_img/springboot/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-26</div><div class="title">【SpringBoot学习笔记】统一异常处理</div></div></a></div><div><a href="/2021/11/15/java-Base-Thread/" title="【Java 基础】多线程基础知识点"><img class="cover" src="/blog_img/javabase/3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-15</div><div class="title">【Java 基础】多线程基础知识点</div></div></a></div><div><a href="/2021/11/13/java-Base-java8/" title="【Java 基础】带你深入了解 Java 8 新特性"><img class="cover" src="/blog_img/javabase/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-13</div><div class="title">【Java 基础】带你深入了解 Java 8 新特性</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%82%E5%B8%B8"><span class="toc-number">1.</span> <span class="toc-text">一、什么是异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">二、异常的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Error%E5%92%8CException"><span class="toc-number">2.1.</span> <span class="toc-text">Error和Exception</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84-Error-%E5%92%8C-Exception"><span class="toc-number">2.2.</span> <span class="toc-text">常见的 Error 和 Exception</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E6%96%B9%E6%B3%95"><span class="toc-number">2.3.</span> <span class="toc-text">异常方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">三、Java异常处理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#finally%E5%9D%97%E4%B8%8D%E4%BC%9A%E8%A2%AB%E6%89%A7%E8%A1%8C%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text">finally块不会被执行的情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E9%93%BE%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">四、异常的链化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">五、子类重写父类异常处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E8%AE%BE%E8%AE%A1"><span class="toc-number">6.</span> <span class="toc-text">六、异常处理设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2021 By 猫的树</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'qY2AXoJutWMuIsJAUnyLVX9R-gzGzoHsz',
+      appKey: 'kiMErrX5iALIjqdKCj6lwOc7',
+      avatar: 'monsterid',
+      serverURLs: 'https://qy2axoju.lc-cn-n1-shared.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      master: '9609177916F09BD31FDC84D0D29883EC',
+      tagMeta: ["博主","小伙伴","访客"],
+      friends: [""],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="8263774244" data-server="tencent" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
