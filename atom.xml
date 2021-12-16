@@ -6,7 +6,7 @@
   <link href="https://www.kirecatyu.top/atom.xml" rel="self"/>
   
   <link href="https://www.kirecatyu.top/"/>
-  <updated>2021-12-07T08:32:31.801Z</updated>
+  <updated>2021-12-16T09:00:02.520Z</updated>
   <id>https://www.kirecatyu.top/</id>
   
   <author>
@@ -17,15 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://www.kirecatyu.top/2021/12/07/12/"/>
-    <id>https://www.kirecatyu.top/2021/12/07/12/</id>
-    <published>2021-12-07T08:32:31.801Z</published>
-    <updated>2021-12-07T08:32:31.801Z</updated>
+    <title>Java 下载excle模板问题记录</title>
+    <link href="https://www.kirecatyu.top/2021/12/16/ProblemSolved(8)/"/>
+    <id>https://www.kirecatyu.top/2021/12/16/ProblemSolved(8)/</id>
+    <published>2021-12-16T08:41:09.000Z</published>
+    <updated>2021-12-16T09:00:02.520Z</updated>
+    
+    
+    <summary type="html">下载excle模板问题记录</summary>
     
     
     
+    <category term="问题记录" scheme="https://www.kirecatyu.top/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="excle" scheme="https://www.kirecatyu.top/tags/excle/"/>
     
   </entry>
   
@@ -34,7 +42,7 @@
     <link href="https://www.kirecatyu.top/2021/11/29/SpringCloud(5)/"/>
     <id>https://www.kirecatyu.top/2021/11/29/SpringCloud(5)/</id>
     <published>2021-11-29T10:08:39.000Z</published>
-    <updated>2021-12-08T07:35:38.352Z</updated>
+    <updated>2021-12-16T08:54:55.276Z</updated>
     
     
     <summary type="html">SpringCloud入门</summary>
@@ -154,6 +162,27 @@
   </entry>
   
   <entry>
+    <title>API接口签名验证_MD5加密出现不同结果的解决方法</title>
+    <link href="https://www.kirecatyu.top/2021/11/02/ProblemSolved(11)/"/>
+    <id>https://www.kirecatyu.top/2021/11/02/ProblemSolved(11)/</id>
+    <published>2021-11-02T01:55:25.000Z</published>
+    <updated>2021-12-16T09:23:39.087Z</updated>
+    
+    
+    <summary type="html">API接口签名验证_MD5加密出现不同结果的解决方法</summary>
+    
+    
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="验签" scheme="https://www.kirecatyu.top/tags/%E9%AA%8C%E7%AD%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【SpringCloud入门】Ribbon负载均衡</title>
     <link href="https://www.kirecatyu.top/2021/10/28/SpringCloud(3)/"/>
     <id>https://www.kirecatyu.top/2021/10/28/SpringCloud(3)/</id>
@@ -230,6 +259,27 @@
   </entry>
   
   <entry>
+    <title>CentOS7 -bash:vim:未找到命令</title>
+    <link href="https://www.kirecatyu.top/2021/10/12/ProblemSolved(10)/"/>
+    <id>https://www.kirecatyu.top/2021/10/12/ProblemSolved(10)/</id>
+    <published>2021-10-12T15:29:33.000Z</published>
+    <updated>2021-12-16T09:17:48.969Z</updated>
+    
+    
+    <summary type="html">CentOS7 -bash:vim:未找到命令</summary>
+    
+    
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="CentOS7" scheme="https://www.kirecatyu.top/tags/CentOS7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【SpringBoot学习笔记】Filter过滤器的使用</title>
     <link href="https://www.kirecatyu.top/2021/10/08/SpringBoot(9)/"/>
     <id>https://www.kirecatyu.top/2021/10/08/SpringBoot(9)/</id>
@@ -268,6 +318,27 @@
     <category term="SpringBoot" scheme="https://www.kirecatyu.top/tags/SpringBoot/"/>
     
     <category term="Redis" scheme="https://www.kirecatyu.top/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Could not resolve host:mirrorlist.centos.org; Unknown error 的解决方法</title>
+    <link href="https://www.kirecatyu.top/2021/09/30/ProblemSolved(9)/"/>
+    <id>https://www.kirecatyu.top/2021/09/30/ProblemSolved(9)/</id>
+    <published>2021-09-30T00:59:01.000Z</published>
+    <updated>2021-12-16T09:15:11.895Z</updated>
+    
+    
+    <summary type="html">Could not resolve host:mirrorlist.centos.org; Unknown error 的解决方法</summary>
+    
+    
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="问题记录" scheme="https://www.kirecatyu.top/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="CentOS7" scheme="https://www.kirecatyu.top/tags/CentOS7/"/>
     
   </entry>
   
@@ -336,63 +407,6 @@
     <id>https://www.kirecatyu.top/2021/09/18/SpringBoot(4)/</id>
     <published>2021-09-18T09:07:43.000Z</published>
     <updated>2021-12-08T07:11:12.632Z</updated>
-    
-    
-    <summary type="html">SpringBoot学习笔记</summary>
-    
-    
-    
-    <category term="SpringBoot" scheme="https://www.kirecatyu.top/categories/SpringBoot/"/>
-    
-    
-    <category term="SpringBoot" scheme="https://www.kirecatyu.top/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【SpringBoot学习笔记】API实时接口文档Swagger UI、Swagger-Bootstrap-UI</title>
-    <link href="https://www.kirecatyu.top/2021/09/17/SpringBoot(3)/"/>
-    <id>https://www.kirecatyu.top/2021/09/17/SpringBoot(3)/</id>
-    <published>2021-09-17T09:41:41.000Z</published>
-    <updated>2021-12-08T07:09:16.500Z</updated>
-    
-    
-    <summary type="html">SpringBoot学习笔记</summary>
-    
-    
-    
-    <category term="SpringBoot" scheme="https://www.kirecatyu.top/categories/SpringBoot/"/>
-    
-    
-    <category term="SpringBoot" scheme="https://www.kirecatyu.top/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【SpringBoot学习笔记】整合MyBatis-Plus</title>
-    <link href="https://www.kirecatyu.top/2021/09/17/SpringBoot(2)/"/>
-    <id>https://www.kirecatyu.top/2021/09/17/SpringBoot(2)/</id>
-    <published>2021-09-17T07:52:32.000Z</published>
-    <updated>2021-12-08T07:07:59.510Z</updated>
-    
-    
-    <summary type="html">SpringBoot学习笔记</summary>
-    
-    
-    
-    <category term="SpringBoot" scheme="https://www.kirecatyu.top/categories/SpringBoot/"/>
-    
-    
-    <category term="SpringBoot" scheme="https://www.kirecatyu.top/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【SpringBoot学习笔记】快速搭建SpringBoot项目</title>
-    <link href="https://www.kirecatyu.top/2021/09/14/SpringBoot(1)/"/>
-    <id>https://www.kirecatyu.top/2021/09/14/SpringBoot(1)/</id>
-    <published>2021-09-14T07:58:42.000Z</published>
-    <updated>2021-12-08T06:40:29.994Z</updated>
     
     
     <summary type="html">SpringBoot学习笔记</summary>
